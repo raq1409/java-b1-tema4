@@ -98,31 +98,15 @@ public class TruckSelectionGreedy {
             }
         }
 
-/*         while((i < n) && (remainingFuel >= tankLiters[indexes[i]])) {
-            //add to list
-            selectedTrucks.add(indexes[i] + 1);
-
-            remainingFuel -= tankLiters[indexes[i]];
-            i++;
-        }
-*/
         return selectedTrucks;
     }
 
     
     public static void main(String[] args) {
-/*      int[] kilometers = {400, 600, 1200, 1000};
+        int[] kilometers = {400, 600, 1200, 1000};
         int[] tankLiters = {100, 100, 300, 500};
         int totalFuel = 500;
 
-        int[] kilometers = {100, 200, 300, 400};
-        int[] tankLiters = {50, 50, 200, 100};
-        int totalFuel = 100;
-*/
-        
-        int[] kilometers = {400, 600, 1200, 200, 300, 100};
-        int[] tankLiters = {100, 100, 300, 100, 100, 50};
-        int totalFuel = 350;
         List<Integer> selected = selectTrucksGreedy(kilometers, tankLiters, totalFuel);
         System.out.println("Selected: " + selected);
     }
