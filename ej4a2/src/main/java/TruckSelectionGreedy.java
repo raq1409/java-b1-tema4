@@ -74,20 +74,59 @@ import java.util.*;
 public class TruckSelectionGreedy {
 
     public static List<Integer> selectTrucksGreedy(int[] kilometers, int[] tankLiters, int totalFuel) {
-            // TODO: Implement greedy algorithm prioritizing efficiency (km/l)
-        return new ArrayList<>();
+        int n = kilometers.length;
+
+        //first, order indexes according to best km/L ratio
+        Integer[] indexes = new Integer[n];
+        for(int i = 0; i<n; i++) indexes[i] = i;
+
+        Arrays.sort(indexes, (a, b) -> {
+            double efficiencyA = (double) kilometers[a] / tankLiters[a];
+            double efficiencyB = (double) kilometers[b] / tankLiters[b];
+            return Double.compare(efficiencyB, efficiencyA);
+        });
+
+        List<Integer> selectedTrucks = new ArrayList<>();
+
+        //go over all objects in greedy order from the Integer[] array and determine which combinations fit onto fuel limitations
+        double remainingFuel = totalFuel;
+
+        for(int index : indexes) {
+            if(tankLiters[index] <= remainingFuel) {
+                selectedTrucks.add(index + 1);
+                remainingFuel -= tankLiters[index];
+            }
+        }
+
+/*         while((i < n) && (remainingFuel >= tankLiters[indexes[i]])) {
+            //add to list
+            selectedTrucks.add(indexes[i] + 1);
+
+            remainingFuel -= tankLiters[indexes[i]];
+            i++;
+        }
+*/
+        return selectedTrucks;
     }
 
-    /*
+    
     public static void main(String[] args) {
-        int[] kilometers = {400, 600, 1200, 1000};
+/*      int[] kilometers = {400, 600, 1200, 1000};
         int[] tankLiters = {100, 100, 300, 500};
         int totalFuel = 500;
 
+        int[] kilometers = {100, 200, 300, 400};
+        int[] tankLiters = {50, 50, 200, 100};
+        int totalFuel = 100;
+*/
+        
+        int[] kilometers = {400, 600, 1200, 200, 300, 100};
+        int[] tankLiters = {100, 100, 300, 100, 100, 50};
+        int totalFuel = 350;
         List<Integer> selected = selectTrucksGreedy(kilometers, tankLiters, totalFuel);
         System.out.println("Selected: " + selected);
     }
-    */
+    
 }
 
-}
+
