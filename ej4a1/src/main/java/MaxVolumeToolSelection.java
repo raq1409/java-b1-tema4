@@ -91,18 +91,48 @@ public class MaxVolumeToolSelection {
      * Devuelve una lista con los números (1-based) de las herramientas seleccionadas.
      */
     public static List<Integer> findBestToolSet(List<Double> volumes, List<Double> weights, double maxWeight) {
-        return new ArrayList<>();
+        int bestCombination = 0;
+        int bestVolume = 0;
+        
+        int totalCombinations = (int) Math.pow(2, weights.size());
+
+        for(int i = 0; i < totalCombinations; i++) {
+            int currentWeight = 0;
+            int currentVolume = 0;
+
+            for(int j = 0; j < weights.size(); j++) {
+                if((i & (1 << j)) != 0) {
+                    currentWeight += weights.get(j);
+                    currentVolume += volumes.get(j);
+                } 
+            }
+
+            if(currentWeight <= maxWeight & currentVolume > bestVolume) {
+                bestCombination = i;
+                bestVolume = currentVolume;
+            }
+        }
+
+        List<Integer> bestSelection = new ArrayList<>();
+        for(int j = 0; j < weights.size(); j++) {
+            if((bestCombination & (1 << j)) != 0) {
+                bestSelection.add(j + 1);
+            }
+        }
+
+        return bestSelection;
     }
 	// -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
+    
     public static void main(String[] args) {
         List<Double> volumes = Arrays.asList(15.0, 30.0, 25.0, 300.0, 100.0, 200.0, 40.0, 70.0, 50.0, 160.0);
         List<Double> weights = Arrays.asList(8.0, 18.0, 10.0, 120.0, 75.0, 150.0, 12.0, 20.0, 25.0, 80.0);
         double maxWeight = 500.0;
+        System.out.println("Selected: " + findBestToolSet(volumes,weights,maxWeight));
     }
-    */
+    
 	// Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
