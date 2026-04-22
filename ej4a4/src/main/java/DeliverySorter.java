@@ -71,17 +71,23 @@ import java.util.Arrays;
  */
  
 public class DeliverySorter {
-
-    // TODO: Implement the Bubble Sort algorithm to sort times in descending order
     public static void bubbleSortDescending(int[] times) {
-        // Your code here
+        for(int i = 0; i < times.length - 1; i++) {
+            for(int j = 0; j < times.length - 1 - i; j++) {
+                if(times[j] < times[j + 1]) {
+                    int temp = times[j];
+                    times[j] = times[j + 1];
+                    times[j + 1] = temp;
+                }
+            }
+        }
     }
 
-    /*
+    
     public static void main(String[] args) {
         int[] times = {45, 30, 55, 20, 40, 35, 60, 25, 50, 15};
         bubbleSortDescending(times);
         System.out.println("Sorted times (descending): " + Arrays.toString(times));
     }
-    */
+    
 }
