@@ -10,7 +10,7 @@
  * OBJETIVO:
  * Implementar un método recursivo que muestre por la salida estándar:
  *   - "Lifting box 1"
- *   - "Lifting box 2"
+ *   -  "Lifting box 2"
  *   - ...
  *   - "Lifting box N"
  *
@@ -64,8 +64,11 @@ public class BoxLifter {
      * Lifting box 3
      */
     public static void liftBoxes(int n) {
-        // TODO: Check if n is valid
-        // TODO: Call your recursive method starting from 1
+        if(n > 0) {
+            liftBoxesRecursive(1, n);       
+        } else {
+            System.out.println("Invalid number of boxes.");
+        } 
     }
 
     /**
@@ -81,19 +84,22 @@ public class BoxLifter {
      * Lifting box 3
      */
     private static void liftBoxesRecursive(int current, int total) {
-        // TODO: Base case → if current > total, stop
-        // TODO: Print message "Lifting box X"
-        // TODO: Recursive call with current + 1
+        if(current > total) {
+            return;
+        } else {
+            System.out.println("Lifting box " + current);
+            liftBoxesRecursive(current + 1, total);
+        }
     }
 
     // -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
+   
     public static void main(String[] args) {
         liftBoxes(3);
     }
-    */
+    
 	// Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
